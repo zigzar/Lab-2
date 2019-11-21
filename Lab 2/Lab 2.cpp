@@ -230,33 +230,3 @@ int main()
 	auto symmTimerEnd = chrono::high_resolution_clock::now();
 	double symmTimerDur = (symmTimerEnd - symmTimerStart).count();
 	cout << "\nВремя создания: " << symmTimerDur / 1000000 << " сек\n\n";
-	
-
-
-	/*int ind, num, dif;
-	cin >> ind;
-	cout << "\nНа что меняем?\nНа ";
-	cin >> num;
-		a[ind] = num;
-		if (N % 2 == 1)
-		{
-			dif = (N-1) / 2 - ind;
-			a[(N-1)/2 + dif] = num;
-		}
-		else 
-		{
-			dif = N / 2 - ind;
-			a[(N-1) / 2 + dif] = num;
-		}
-
-	cout << "\nЭлементы массива:\t";
-	for (int i = 0; i < N; i++)
-	{
-			cout << a[i] << "\t";
-	}
-	cout << "\nНомера массива:  \t";
-	for (int i = 0; i < N; i++)
-	{
-		cout << i << "\t";
-	}*/
-}
