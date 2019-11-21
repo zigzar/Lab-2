@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int N = 16; // Quantity of array elements
+const int N = 1000; // Quantity of array elements
 int a[N]; // Array of elements
 int q[100] = { 0 }; // Array of elements quantity
 
@@ -36,13 +36,13 @@ int main()
 	{
 		a[i] = rand() % 100;
 		q[a[i]]++;
-		cout << a[i] << "\t";
+		cout << a[i] << " ";
 	}
 	cout << "\n";
 
 	for (int i = 0; i < N; i++)
 	{
-		cout << i << "\t";
+		cout << i << " ";
 	}
 	cout << "\n\n";
 
@@ -51,18 +51,18 @@ int main()
 	auto timerEnd = chrono::high_resolution_clock::now();
 	for (int i = 0; i < N; i++)
 	{
-			cout << a[i] << "\t";
+			cout << a[i] << " ";
 	}
 	cout << "\n";
 
 	for (int i = 0; i < N; i++)
 	{
-			cout << i << "\t";
+			cout << i << " ";
 	}
 	chrono::duration<double, milli>;
 	double timerDur = (timerEnd - timerStart).count();
 	cout.setf(ios::fixed);
-	cout << "\nВремя работы быстрой сортировки: " << timerDur / 1000000000 << " сек";
+	cout << "\nВремя работы быстрой сортировки: " << timerDur / 1000000 << " сек";
 
 	cout << "\nМинимальный элемент: " << a[0] << "\nМаксимальный элемент: " << a[N - 1] << "\nКоличество элементов равных среднему между минимальным и максимальным значениями: " << q[(a[0] + a[N - 1]) / 2]
 		<< "\n\nВведите число, а я скажу, сколько чисел в массиве меньше вашего: ";
@@ -77,7 +77,7 @@ int main()
 	auto smTimerEnd = chrono::high_resolution_clock::now();
 	cout << sumSmaller << " чисел меньше вашего\n";
 	double smTimerDur = (smTimerEnd - smTimerStart).count();
-	cout << "Время подсчёта: " << smTimerDur / 1000000000 << " сек\n\n";
+	cout << "Время подсчёта: " << smTimerDur / 1000000 << " сек\n\n";
 
 	cout << "Введите число, а я скажу, сколько чисел в массиве больше вашего: ";
 	int bigger;
@@ -91,12 +91,63 @@ int main()
 	auto bgTimerEnd = chrono::high_resolution_clock::now();
 	double bgTimerDur = (bgTimerEnd - bgTimerStart).count();
 	cout << sumBigger << " чисел больше вашего\n";
-	cout << "Время подсчёта: " << bgTimerDur / 1000000000 << " сек\n\n";
+	cout << "Время подсчёта: " << bgTimerDur / 1000000 << " сек\n\n";
 
-	cout << "_Создание симметричного массива_\n" << "Укажите номер центрального элемента: ";
+	cout << "Введите номер элемента для его удаления: ";
+	int elementNumToDelete;
+	cin >> elementNumToDelete;
+	auto delTimerStart = chrono::high_resolution_clock::now();
+	for (int i = 0; i < N; i++)
+	{
+		if (i == elementNumToDelete) i++;
+		cout << a[i] << " ";
+	}
+	auto delTimerEnd = chrono::high_resolution_clock::now();
+	double delTimerDur = (delTimerEnd - delTimerStart).count();
+
+	cout << "\nВремя удаления элемента: " << delTimerDur / 1000000 << " сек";
+
+	cout << "\nВозвращаю массив к исходному состоянию:\n";
+	for (int i = 0; i < N; i++)
+	{
+		cout << a[i] << " ";
+	}
+
+	cout << "\n\nВведите номер элемента для вставки: ";
+	int elementNumToInsert;
+	cin >> elementNumToInsert;
+	cout << "Введите значение элемента для вставки: ";
+	int elementToInsert;
+	cin >> elementToInsert;
+	auto insTimerStart = chrono::high_resolution_clock::now();
+	for (int i = 0; i < N; i++)
+	{
+		if (i == elementNumToInsert) cout << elementToInsert << " ";
+		cout << a[i] << " ";
+	}
+	auto insTimerEnd = chrono::high_resolution_clock::now();
+	double insTimerDur = (insTimerEnd - insTimerStart).count();
+
+	cout << "\nВремя вставки элемента: " << insTimerDur / 1000000 << " сек";
+
+	cout << "\nВозвращаю массив к исходному состоянию:\n";
+	for (int i = 0; i < N; i++)
+		{
+			cout << a[i] << " ";
+		}
+
+
+
+	cout << "\n\n_Создание симметричного массива_";
+	int ind, val;
+	cout << "\nВведите номер элемента, который будем изменять: ";
+	cin >> ind;
+	cout << "\nВведите значение для замены: ";
+	cin >> val;
+	cout << "\nУкажите номер центрального элемента: ";
 	int center;
 	cin >> center;
-	cout << "Создаю симметричный массив...\n";
+	cout << "\nСоздаю симметричный массив...\n";
 
 	/*for (int i = 0; i < N / 2; i++)
 	{
@@ -111,16 +162,26 @@ int main()
 	{
 		cout << i << "\t";
 	}*/
-	for (int i = 0; i <= center; i++)
+	auto symmTimerStart = chrono::high_resolution_clock::now();
+	a[ind] = val;
+	for (int j = 0 ;;)
 	{
-		cout << a[i] << "\t";
+		if (j == N - 1) break;
+		for (int i = 0; i <= center; i++, j++)
+		{
+			if (j == N - 1) break;
+			cout << a[i] << " ";
+		}
+		if (j == N - 1) break;
+		for (int i = center - 1; i >= 0; i--, j++)
+		{
+			if (j == N - 1) break;
+			cout << a[i] << " ";
+		}
 	}
-	for (int i = center - 1; i >= 0; i--)
-	{
-		cout << a[i] << "\t";
-	}
-
-	cout << "\n\nВведите номер элемента, который будем изменять (я сохраню симметрию массива): ";
+	auto symmTimerEnd = chrono::high_resolution_clock::now();
+	double symmTimerDur = (symmTimerEnd - symmTimerStart).count();
+	cout << "\nВремя создания: " << symmTimerDur / 1000000 << " сек\n\n";
 	
 
 
