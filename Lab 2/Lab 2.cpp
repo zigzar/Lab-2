@@ -27,6 +27,19 @@ void qsort(int start, int end) // Source https://habr.com/ru/sandbox/29775/
 		qsort(left, end);
 }
 
+int binSearch(int* A, int start, int end, int number) {
+	if (end >= start) {
+		int mid = start + (end - start) / 2;
+		if (A[mid] == number)
+			return mid;
+		if (A[mid] > number)
+			return binSearch(A, start, mid - 1, number);
+		if (A[mid] < number)
+			return binSearch(A, mid + 1, end, number);
+	}
+	return -1;
+}
+
 int main()
 {
 	setlocale(0, "");
@@ -59,7 +72,7 @@ int main()
 	{
 			cout << i << " ";
 	}
-	chrono::duration<double, milli>;
+	chrono::duration<double, nano>;
 	double timerDur = (timerEnd - timerStart).count();
 	cout.setf(ios::fixed);
 	cout << "\nВремя работы быстрой сортировки: " << timerDur / 1000000 << " сек";
@@ -143,8 +156,8 @@ int main()
 				}
 				auto insTimerEnd = chrono::high_resolution_clock::now();
 				double insTimerDur = (insTimerEnd - insTimerStart).count();
-
 				cout << "\nВремя вставки элемента: " << insTimerDur / 1000000 << " сек";
+				break;
 			}
 			else {
 				cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
@@ -159,16 +172,42 @@ int main()
 		}
 
 
+	int numToSearch;
+	cout << "\n\nВведите значение для поиска: ";
+	cin >> numToSearch;
+	auto searchTimerStart = chrono::high_resolution_clock::now();
+	int searchRes = binSearch(a, 0, N - 1, numToSearch);
+	auto searchTimerEnd = chrono::high_resolution_clock::now();
+	if (searchRes == -1) cout << "Такого числа не нашлось =(";
+	else cout << "Такое число нашлось! Его номер в массиве: " << searchRes;
+	double searchTimerDur = (searchTimerEnd - searchTimerStart).count();
+	cout << "\nВремя поиска элемента: " << searchTimerDur / 1000000 << " сек";
+
 
 	cout << "\n\n_Создание симметричного массива_";
 	int ind, val;
-	cout << "\nВведите номер элемента, который будем изменять: ";
-	cin >> ind;
+	do {
+		cout << "\nВведите номер элемента, который будем изменять: ";
+		cin >> ind;
+		if (ind >= 0 && ind < N) break;
+		else {
+			cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
+			cin.clear();
+		}
+	} while (true);
 	cout << "\nВведите значение для замены: ";
 	cin >> val;
-	cout << "\nУкажите номер центрального элемента: ";
 	int center;
-	cin >> center;
+	do {
+		cout << "\nУкажите номер центрального элемента: ";
+		cin >> center;
+		if (center >= 0 && center < N) break;
+		else {
+			cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
+			cin.clear();
+		}
+	} while (true);
+
 	cout << "\nСоздаю симметричный массив...\n";
 
 	auto symmTimerStart = chrono::high_resolution_clock::now();
@@ -182,7 +221,7 @@ int main()
 			cout << a[i] << " ";
 		}
 		if (j == N - 1) break;
-		for (int i = center - 1; i >= 0; i--, j++)
+		for (int i = center - 1; i > 0; i--, j++)
 		{
 			if (j == N - 1) break;
 			cout << a[i] << " ";
