@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 int inputCheck() {
 	while (true) {
 		int input;

@@ -1,7 +1,10 @@
-﻿#include <iostream>
+﻿//Используя данную программу, вы соглашаетесь выполнять следующее правило:
+//Выполнять ввод только натуральных чисел арабскими цифрами в естественном виде
+
+#include <iostream>
 #include <ctime>
 #include <chrono>
-#include "inputCheck"
+#include "inputCheck.h"
 
 using namespace std;
 
@@ -65,13 +68,13 @@ int main()
 	auto timerEnd = chrono::high_resolution_clock::now();
 	for (int i = 0; i < N; i++)
 	{
-			cout << a[i] << " ";
+		cout << a[i] << " ";
 	}
 	cout << "\n";
 
 	for (int i = 0; i < N; i++)
 	{
-			cout << i << " ";
+		cout << i << " ";
 	}
 	chrono::duration<double, nano>;
 	double timerDur = (timerEnd - timerStart).count();
@@ -80,9 +83,7 @@ int main()
 
 	cout << "\nМинимальный элемент: " << a[0] << "\nМаксимальный элемент: " << a[N - 1] << "\nКоличество элементов равных среднему между минимальным и максимальным значениями: " << q[(a[0] + a[N - 1]) / 2]
 		<< "\n\nВведите число, а я скажу, сколько чисел в массиве меньше вашего: ";
-	int smaller;
-	cin >> inputCheck();
-	smaller = input;
+	int smaller = inputCheck();
 	int sumSmaller = 0;
 	auto smTimerStart = chrono::high_resolution_clock::now();
 	for (int i = 0; i < smaller; i++)
@@ -95,8 +96,7 @@ int main()
 	cout << "Время подсчёта: " << smTimerDur / 1000000 << " сек\n\n";
 
 	cout << "Введите число, а я скажу, сколько чисел в массиве больше вашего: ";
-	int bigger;
-	cin >> bigger;
+	int bigger = inputCheck();
 	int sumBigger = 0;
 	auto bgTimerStart = chrono::high_resolution_clock::now();
 	for (int i = 99; i > bigger; i--)
@@ -110,8 +110,8 @@ int main()
 
 	int elementNumToDelete;
 	do {
-	cout << "Введите номер элемента для его удаления: ";
-	cin >> elementNumToDelete;
+		cout << "Введите номер элемента для его удаления: ";
+		elementNumToDelete = inputCheck();
 		if (elementNumToDelete >= 0 && elementNumToDelete < N) {
 			auto delTimerStart = chrono::high_resolution_clock::now();
 			for (int i = 0; i < N; i++)
@@ -122,7 +122,8 @@ int main()
 				else if (i == elementNumToDelete) {
 					i++;
 					cout << a[i] << " ";
-				} else cout << a[i] << " ";
+				}
+				else cout << a[i] << " ";
 			}
 			auto delTimerEnd = chrono::high_resolution_clock::now();
 			double delTimerDur = (delTimerEnd - delTimerStart).count();
@@ -142,41 +143,39 @@ int main()
 		cout << a[i] << " ";
 	}
 
-	int elementNumToInsert;
+	int elementNumToInsert, elementToInsert;
 	do {
-			cout << "\n\nВведите номер элемента для вставки: ";
-			cin >> elementNumToInsert;		
-			if (elementNumToInsert >= 0 && elementNumToInsert < N) {
-				cout << "Введите значение элемента для вставки: ";
-				int elementToInsert;
-				cin >> elementToInsert;
-				auto insTimerStart = chrono::high_resolution_clock::now();
-				for (int i = 0; i < N; i++)
-				{
-					if (i == elementNumToInsert) cout << elementToInsert << " ";
-					cout << a[i] << " ";
-				}
-				auto insTimerEnd = chrono::high_resolution_clock::now();
-				double insTimerDur = (insTimerEnd - insTimerStart).count();
-				cout << "\nВремя вставки элемента: " << insTimerDur / 1000000 << " сек";
-				break;
+		cout << "\n\nВведите номер элемента для вставки: ";
+		elementNumToInsert = inputCheck();
+		if (elementNumToInsert >= 0 && elementNumToInsert < N) {
+			cout << "Введите значение элемента для вставки: ";
+			elementToInsert = inputCheck();
+			auto insTimerStart = chrono::high_resolution_clock::now();
+			for (int i = 0; i < N; i++)
+			{
+				if (i == elementNumToInsert) cout << elementToInsert << " ";
+				cout << a[i] << " ";
 			}
-			else {
-				cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
-				cin.clear();
-			}
+			auto insTimerEnd = chrono::high_resolution_clock::now();
+			double insTimerDur = (insTimerEnd - insTimerStart).count();
+			cout << "\nВремя вставки элемента: " << insTimerDur / 1000000 << " сек";
+			break;
+		}
+		else {
+			cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
+			cin.clear();
+		}
 	} while (true);
 
 	cout << "\nВозвращаю массив к исходному состоянию:\n";
 	for (int i = 0; i < N; i++)
-		{
-			cout << a[i] << " ";
-		}
+	{
+		cout << a[i] << " ";
+	}
 
 
-	int numToSearch;
 	cout << "\n\nВведите значение для поиска: ";
-	cin >> numToSearch;
+	int numToSearch = inputCheck();
 	auto searchTimerStart = chrono::high_resolution_clock::now();
 	int searchRes = binSearch(a, 0, N - 1, numToSearch);
 	auto searchTimerEnd = chrono::high_resolution_clock::now();
@@ -190,7 +189,7 @@ int main()
 	int ind, val;
 	do {
 		cout << "\nВведите номер элемента, который будем изменять: ";
-		cin >> ind;
+		ind = inputCheck();
 		if (ind >= 0 && ind < N) break;
 		else {
 			cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
@@ -198,11 +197,11 @@ int main()
 		}
 	} while (true);
 	cout << "\nВведите значение для замены: ";
-	cin >> val;
+	val = inputCheck();
 	int center;
 	do {
 		cout << "\nУкажите номер центрального элемента: ";
-		cin >> center;
+		center = inputCheck();
 		if (center >= 0 && center < N) break;
 		else {
 			cout << "Число выходит за диапазон массива. Пожалуйста, укажите число в промежутке от 0 до " << N - 1 << "\n";
@@ -214,7 +213,7 @@ int main()
 
 	auto symmTimerStart = chrono::high_resolution_clock::now();
 	a[ind] = val;
-	for (int j = 0 ;;)
+	for (int j = 0;;)
 	{
 		if (j == N - 1) break;
 		for (int i = 0; i <= center; i++, j++)
@@ -232,3 +231,4 @@ int main()
 	auto symmTimerEnd = chrono::high_resolution_clock::now();
 	double symmTimerDur = (symmTimerEnd - symmTimerStart).count();
 	cout << "\nВремя создания: " << symmTimerDur / 1000000 << " сек\n\n";
+}
