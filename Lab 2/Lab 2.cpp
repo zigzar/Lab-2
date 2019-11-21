@@ -4,27 +4,27 @@
 
 using namespace std;
 
-const int N = 1000; // Quantity of array elements
+const int N = 20; // Quantity of array elements
 int a[N]; // Array of elements
 int q[100] = { 0 }; // Array of elements quantity
 
-void qsort(int b, int e) // Source https://habr.com/ru/sandbox/29775/
+void qsort(int start, int end) // Source https://habr.com/ru/sandbox/29775/
 {
-	int l = b, r = e;
-	int piv = a[(l + r) / 2];
-	while (l <= r)
+	int left = start, right = end;
+	int piv = a[(left + right) / 2];
+	while (left <= right)
 	{
-		while (a[l] < piv)
-			l++;
-		while (a[r] > piv)
-			r--;
-		if (l <= r)
-			swap(a[(l++)], a[(r--)]);
+		while (a[left] < piv)
+			left++;
+		while (a[right] > piv)
+			right--;
+		if (left <= right)
+			swap(a[(left++)], a[(right--)]);
 	}
-	if (b < r)
-		qsort(b, r);
-	if (e > l)
-		qsort(l, e);
+	if (start < right)
+		qsort(start, right);
+	if (end > left)
+		qsort(left, end);
 }
 
 int main()
