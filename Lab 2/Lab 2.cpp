@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <ctime>
 #include <chrono>
+#include "inputCheck"
 
 using namespace std;
 
@@ -80,7 +81,8 @@ int main()
 	cout << "\nМинимальный элемент: " << a[0] << "\nМаксимальный элемент: " << a[N - 1] << "\nКоличество элементов равных среднему между минимальным и максимальным значениями: " << q[(a[0] + a[N - 1]) / 2]
 		<< "\n\nВведите число, а я скажу, сколько чисел в массиве меньше вашего: ";
 	int smaller;
-	cin >> smaller;
+	cin >> inputCheck();
+	smaller = input;
 	int sumSmaller = 0;
 	auto smTimerStart = chrono::high_resolution_clock::now();
 	for (int i = 0; i < smaller; i++)
