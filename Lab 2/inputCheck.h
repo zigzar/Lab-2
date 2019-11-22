@@ -8,7 +8,7 @@ int inputCheck() {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(cin.rdbuf()->in_avail());
-			cout << endl << "Ïîïğîáóéòå ââåñòè êîğğåêòíîå ÷èñëî: ";
+			cout << endl << "Îøèáêà ââîäà. Ïîæàëóéñòà, ïîïğîáóéòå ââåñòè ÷èñëî ïî-äğóãîìó: ";
 		}
 		else {
 			cin.ignore(cin.rdbuf()->in_avail());
